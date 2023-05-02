@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Apr 27, 2023 alle 10:46
+-- Creato il: Mag 02, 2023 alle 12:14
 -- Versione del server: 10.4.27-MariaDB
 -- Versione PHP: 8.1.12
 
@@ -40,7 +40,7 @@ CREATE TABLE `admin` (
 
 CREATE TABLE `disponibilità tutor` (
   `Id tutor` int(11) NOT NULL,
-  `Giorno` varchar(10) NOT NULL,
+  `Giorno` varchar(255) NOT NULL,
   `Orario inizio` time NOT NULL,
   `Orario fine` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -53,7 +53,20 @@ CREATE TABLE `disponibilità tutor` (
 
 CREATE TABLE `materia` (
   `Id tutor` int(11) NOT NULL,
-  `Materia` varchar(40) NOT NULL
+  `Materia` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `messaggi`
+--
+
+CREATE TABLE `messaggi` (
+  `id messaggio` int(11) NOT NULL,
+  `id mittente` int(11) NOT NULL,
+  `id destinatario` int(11) NOT NULL,
+  `messaggio` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -77,7 +90,10 @@ CREATE TABLE `richieste` (
   `Id richiesta` int(11) NOT NULL,
   `Id richiedente` int(11) NOT NULL,
   `Id ricevente` int(11) NOT NULL,
-  `Stato richiesta` varchar(20) NOT NULL
+  `data` date NOT NULL,
+  `ora inizio` time NOT NULL,
+  `ora fine` time NOT NULL,
+  `Stato richiesta` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -101,15 +117,15 @@ CREATE TABLE `segnalazioni` (
 
 CREATE TABLE `studente` (
   `Id utente` int(11) NOT NULL,
-  `Nome` varchar(30) NOT NULL,
-  `Cognome` varchar(30) NOT NULL,
-  `Classe` varchar(10) NOT NULL,
-  `Indirizzo` varchar(50) NOT NULL,
-  `Sesso` varchar(10) NOT NULL,
+  `Nome` varchar(255) NOT NULL,
+  `Cognome` varchar(255) NOT NULL,
+  `Classe` int(11) NOT NULL,
+  `Indirizzo` varchar(255) NOT NULL,
+  `Sesso` varchar(255) NOT NULL,
   `Data nascita` date NOT NULL,
   `Diplomato` tinyint(1) NOT NULL,
-  `Email scolastica` varchar(100) NOT NULL,
-  `Email di recupero` varchar(100) NOT NULL,
+  `Email scolastica` varchar(255) NOT NULL,
+  `Email di recupero` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -122,7 +138,7 @@ CREATE TABLE `studente` (
 CREATE TABLE `ticket` (
   `Id ticket` int(11) NOT NULL,
   `Id richiedente` int(11) NOT NULL,
-  `Richiesta` int(11) NOT NULL
+  `Materia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -133,11 +149,11 @@ CREATE TABLE `ticket` (
 
 CREATE TABLE `tutor` (
   `Id tutor` int(11) NOT NULL,
-  `Zona geografica` varchar(50) NOT NULL,
-  `Tipologia` varchar(15) NOT NULL,
-  `Numero di telefono` varchar(15) NOT NULL,
+  `Zona geografica` varchar(255) NOT NULL,
+  `Tipologia` varchar(255) NOT NULL,
+  `Numero di telefono` varchar(255) NOT NULL,
   `Descrizione` varchar(255) NOT NULL,
-  `Disponibilità` varchar(15) NOT NULL
+  `Disponibilità` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -161,6 +177,12 @@ ALTER TABLE `disponibilità tutor`
 --
 ALTER TABLE `materia`
   ADD KEY `Id tutor` (`Id tutor`);
+
+--
+-- Indici per le tabelle `messaggi`
+--
+ALTER TABLE `messaggi`
+  ADD PRIMARY KEY (`id messaggio`);
 
 --
 -- Indici per le tabelle `recensioni`
@@ -201,6 +223,12 @@ ALTER TABLE `tutor`
 --
 -- AUTO_INCREMENT per le tabelle scaricate
 --
+
+--
+-- AUTO_INCREMENT per la tabella `messaggi`
+--
+ALTER TABLE `messaggi`
+  MODIFY `id messaggio` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `richieste`
