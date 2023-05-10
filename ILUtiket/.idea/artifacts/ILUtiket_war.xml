@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ILUtiket:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/ILUtiket_war</output-path>
+    <root id="archive" name="ILUtiket_war.war">
+      <element id="artifact" artifact-name="ILUtiket:war exploded" />
+    </root>
+  </artifact>
+</component>
